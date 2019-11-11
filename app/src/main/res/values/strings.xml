@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Pictioneer</string>
+    <string name="auction_title_hint">Enter a title for the auction posting.</string>
+    <string name="auction_title_label">Title</string>
+    <string name="auction_details_label">Details</string>
+    <string name="auction_sold_label">Sold</string>
 </resources>

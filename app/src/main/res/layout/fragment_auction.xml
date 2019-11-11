@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp">
+
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/auction_title_label"/>
+
+    <EditText
+        android:id="@+id/auction_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/auction_title_hint"/>
+
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/auction_details_label"/>
+
+    <Button
+        android:id="@+id/auction_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <Button
+        android:id="@+id/take_picture_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take a picture"
+        app:layout_constraintEnd_toEndOf="@id/auction_date"
+        app:layout_constraintTop_toTopOf="@id/camera_thumbnail_picture" />
+
+    <ImageView
+        android:id="@+id/camera_thumbnail_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/take_picture_button"
+        app:layout_constraintTop_toBottomOf="@+id/take_picture_button"
+        app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+    <CheckBox
+        android:id="@+id/auction_sold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/auction_sold_label"
+        app:layout_constraintTop_toBottomOf="@+id/camera_thumbnail_picture"
+        />
+
+
+
+
+</LinearLayout>
