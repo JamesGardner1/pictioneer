@@ -42,4 +42,4 @@ public class AuctionArchive {
         return null;
     }
 }
-}
+

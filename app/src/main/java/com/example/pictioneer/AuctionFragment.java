@@ -1,11 +1,14 @@
 package com.example.pictioneer;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +30,8 @@ public class AuctionFragment extends Fragment {
     private static final String ARG_AUCTION_ID = "auction_id";
     private static int REQUEST_CODE_TAKE_PICTURE = 0;
 
+    private static String TAG = "AUCTION_FRAGMENT";
+
     private AuctionItem mAuctionItem;
     private EditText mTitleField;
     private Button mDateButton;
@@ -34,6 +39,24 @@ public class AuctionFragment extends Fragment {
     private Button mTakePictureButton;
     private ImageView mCameraPicture;
 
+
+    // TODO is this where the thumbnail should go?
+    public void setThumbnailPicture(Bitmap bitmap) {
+        mCameraPicture.setImageBitmap(bitmap);
+    }
+
+
+    interface AuctionFragmentListener {
+        void onTakePictureRequest();
+    }
+
+    private AuctionFragmentListener listener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.listener = (AuctionFragmentListener) context;
+    }
 
     //Creates crime fragment
     public static AuctionFragment newInstance(UUID crimeId) {
@@ -50,7 +73,10 @@ public class AuctionFragment extends Fragment {
         super.onCreate(savedInstanceState);
         // Fetching the crime
         UUID crimeId = (UUID) getArguments().getSerializable(ARG_AUCTION_ID);
-        mAuctionItem = AuctionArchive.get(getActivity()).getAuction(crimeId);
+        // This is returning null
+        // mAuctionItem = AuctionArchive.get(getActivity()).getAuction(crimeId);
+        // So making a placeholder
+        mAuctionItem = new AuctionItem("Test", true);
 
     }
 
@@ -61,7 +87,7 @@ public class AuctionFragment extends Fragment {
 
         // Displaying crime data
         mTitleField = v.findViewById(R.id.auction_title);
-        mTitleField.setText(mAuctionItem.getTitle());
+        mTitleField.setText(mAuctionItem.getTitle());    // This is throwing a NullPointer
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(
@@ -99,7 +125,7 @@ public class AuctionFragment extends Fragment {
         mTakePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.takeThumbnailPicture();
+                listener.onTakePictureRequest();
             }
         });
 
@@ -109,14 +135,15 @@ public class AuctionFragment extends Fragment {
 
 
 
+// The main activity will launch the camera, so the main activity will receive the onActivityResult message
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_TAKE_PICTURE && resultCode == RESULT_OK) {
-            Bitmap thumbnail = data.getParcelableExtra("data");
-            mCameraPicture.setImageBitmap(thumbnail);
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == REQUEST_CODE_TAKE_PICTURE && resultCode == RESULT_OK) {
+//            Bitmap thumbnail = data.getParcelableExtra("data");
+//            mCameraPicture.setImageBitmap(thumbnail);
+//        }
+//    }
 }
 
 

@@ -16,6 +16,14 @@ public class AuctionItem {
         mDate = new Date();
     }
 
+    public AuctionItem(String title, boolean sold) {
+        this.mAuctionId = UUID.randomUUID();
+        this.mTitle = title;
+        this.mDate = new Date();
+        this.mSold = sold;
+    }
+
+
     public UUID getAuctionId() { return mAuctionId; }
 
     public void setAuctionId(UUID auctionId) { mAuctionId = auctionId; }
