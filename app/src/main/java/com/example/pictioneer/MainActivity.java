@@ -12,10 +12,12 @@ import android.widget.Toast;
 
 import java.util.UUID;
 
-public class MainActivity extends SingleFragmentActivity {
+public class MainActivity extends SingleFragmentActivity implements AuctionFragment.AuctionFragmentListener {
 
     private static final String EXTRA_AUCTION_ID = "com.example.android.pictioneer.auction_id";
     private static int REQUEST_CODE_TAKE_PICTURE = 0;
+
+    AuctionFragment auctionFragment;
 
     // Display specific crime
     public static Intent newIntent(Context packageContext, UUID crimeId) {
@@ -27,7 +29,8 @@ public class MainActivity extends SingleFragmentActivity {
     @Override
     protected Fragment createFragment() {
         UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_AUCTION_ID);
-        return AuctionFragment.newInstance(crimeId);
+        auctionFragment = AuctionFragment.newInstance(crimeId);  // todo adapt for auctions
+        return auctionFragment;
     }
 
     public void takeThumbnailPicture() {
@@ -42,4 +45,18 @@ public class MainActivity extends SingleFragmentActivity {
     }
 
 
+    @Override
+    public void onTakePictureRequest() {
+        takeThumbnailPicture();
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_TAKE_PICTURE) {
+            auctionFragment.setThumbnailPicture((Bitmap) data.getExtras().get("data"));
+        }
+        // todo deal with not taking a picture
+
+    }
 }
