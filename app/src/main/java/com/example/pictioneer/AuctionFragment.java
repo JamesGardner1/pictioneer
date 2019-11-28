@@ -59,9 +59,9 @@ public class AuctionFragment extends Fragment {
     }
 
     //Creates crime fragment
-    public static AuctionFragment newInstance(UUID crimeId) {
+    public static AuctionFragment newInstance(UUID auctionId) {
         Bundle args = new Bundle();
-        args.putSerializable(ARG_AUCTION_ID, crimeId);
+        args.putSerializable(ARG_AUCTION_ID, auctionId);
 
         AuctionFragment fragment = new AuctionFragment();
         fragment.setArguments(args);
@@ -72,9 +72,9 @@ public class AuctionFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Fetching the crime
-        UUID crimeId = (UUID) getArguments().getSerializable(ARG_AUCTION_ID);
+        UUID auctionId = (UUID) getArguments().getSerializable(ARG_AUCTION_ID);
         // This is returning null
-        // mAuctionItem = AuctionArchive.get(getActivity()).getAuction(crimeId);
+        // mAuctionItem = AuctionArchive.get(getActivity()).getAuction(auctionId);
         // So making a placeholder
         mAuctionItem = new AuctionItem("Test", true);
 
@@ -85,7 +85,7 @@ public class AuctionFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_auction, container, false);
 
 
-        // Displaying crime data
+        // Displaying auction data
         mTitleField = v.findViewById(R.id.auction_title);
         mTitleField.setText(mAuctionItem.getTitle());    // This is throwing a NullPointer
         mTitleField.addTextChangedListener(new TextWatcher() {
@@ -131,19 +131,7 @@ public class AuctionFragment extends Fragment {
 
         return v;
     }
-
-
-
-
-// The main activity will launch the camera, so the main activity will receive the onActivityResult message
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == REQUEST_CODE_TAKE_PICTURE && resultCode == RESULT_OK) {
-//            Bitmap thumbnail = data.getParcelableExtra("data");
-//            mCameraPicture.setImageBitmap(thumbnail);
-//        }
-//    }
+    
 }
 
 
